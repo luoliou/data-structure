@@ -1,0 +1,93 @@
+#include <iostream>
+using namespace std;
+struct Node
+{
+	int data;
+	Node *next;
+};
+//Node *createlist()
+//{
+//	Node *head = new Node;
+//	head->next = NULL;
+//	return head;
+//}
+Node *createnode(int n)
+{
+	Node *newnode = new Node;
+	newnode->data = n;
+	newnode->next = NULL;
+	return newnode;
+}
+void inserthead(Node *head, int data)
+{
+	Node *newnode = createnode(data);
+	newnode->next = head->next;
+	head->next = newnode;
+}
+
+struct Stack//也相当于一个节点，只不过它是和Node不一样的节点，此时它相当于一个头节点
+{
+	Node *top;//用栈顶指针表示整个链表
+	int size;
+};
+Stack *createstack()
+{
+	Stack *stack = new Stack;
+	stack->size = 0;
+	stack->top = NULL;
+	return stack;
+}
+void push(Stack *stack, int data)
+{
+	Node *newnode = createnode(data);
+	newnode->next = stack->top;
+	stack->top = newnode;
+	stack->size++;
+}
+int top(Stack *stack)
+{
+	if (stack->top == NULL)
+	{
+		cout << "栈中元素为空！" << endl;
+		return 0;
+	}
+	else
+		return stack->top->data;
+}
+void pop(Stack *stack)
+{
+	if (stack->top == NULL)
+	{
+		cout << "栈中元素为空！" << endl;
+		system("pause");
+	}
+	else
+	{
+		Node *temp = stack->top->next;
+		delete stack->top;
+		stack->top = temp;
+		stack->size--;
+	}
+}
+bool empty(Stack *stack)
+{
+	if (stack->size == 0)
+		return 1;
+	else
+		return 0;
+}
+int main()
+{
+	Stack *stack = createstack();
+	push(stack, 3);
+	push(stack, 2);
+	push(stack, 1);
+	while (!empty(stack))
+	{
+		cout << top(stack) << '\t';
+		pop(stack);
+	}
+	cout << endl;
+	system("pause");
+	return 0;
+}
