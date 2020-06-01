@@ -1,0 +1,111 @@
+#include <iostream>
+using namespace std;
+struct Node
+{
+	int data;
+	Node *next;
+};
+Node *createnode(int n)
+{
+	Node *newnode = new Node;
+	newnode->data = n;
+	newnode->next = NULL;
+	return newnode;
+}
+struct Queue
+{
+	Node *top, *rear;
+	int size;
+};
+Queue *createqueue()
+{
+	Queue *queue = new Queue;
+	queue->top = NULL;
+	queue->rear = NULL;
+	queue->size = 0;
+	return queue;
+}
+void push(Queue *queue,int data)
+{
+	Node *newnode = createnode(data);
+	if (queue->size == 0)
+	{
+		queue->rear = queue->top = newnode;
+	}
+	else
+	{
+		queue->rear->next = newnode;
+		queue->rear = newnode;
+	}
+	queue->size++;
+}
+void pop(Queue *queue)//只用移动队头指针
+{
+	if (queue->size == 0)
+	{
+		cout << "队列为空！" << endl;
+		return;
+	}
+	else
+	{
+		Node *temp = queue->top->next;
+		delete queue->top;
+		queue->top = temp;
+	}
+	queue->size--;
+}
+int front(Queue *queue)
+{
+	if (queue->size == 0)
+	{
+		cout << "队列元素为空！" << endl;
+		return 0;
+	}
+	else
+	{
+		return queue->top->data;
+	}
+}
+int back(Queue *queue)
+{
+	if (queue->size == 0)
+	{
+		cout << "队列元素为空！" << endl;
+		return 0;
+	}
+	else
+	{
+		return queue->rear->data;
+	}
+}
+bool empty(Queue *queue)
+{
+	if (queue->size == 0)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+int size(Queue *queue)
+{
+	return queue->size;
+}
+int main()
+{
+	Queue *queue = createqueue();
+	push(queue, 1);
+	push(queue, 2);
+	push(queue, 3);
+	while (!empty(queue))
+	{
+		cout << front(queue) << '\t' << endl;
+		pop(queue);
+	}
+	pop(queue);
+	cout << endl;
+	system("pause");
+	return 0;
+}
