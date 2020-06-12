@@ -1,0 +1,41 @@
+#include <iostream>
+using namespace std;
+typedef struct Bitnode
+{
+	char data;
+	Bitnode *left;
+	Bitnode *right;
+}Bitnode,*Bitree;
+void createtree(Bitree &root)//T是指向Bitnode类型的指针，因为是创建在之前都没有定义过，所以需要用引用而不是指针
+{
+	char ch;
+	cin >> ch;
+	if (ch == '#')
+	{
+		root = NULL;
+	}
+	else
+	{
+		root = new Bitnode;
+		root->data = ch;
+		createtree(root->left);
+		createtree(root->right);
+	}
+}
+void Pre(Bitree root)
+{
+	vector <char> s;
+	if (root != NULL)
+	{
+		cout << root->data << ' ';
+		Pre(root->left);
+		Pre(root->right);
+	}
+}
+int main()
+{
+	Bitree root;
+	createtree(root);
+	Pre(root);
+	return 0;
+}
