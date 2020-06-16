@@ -1,0 +1,59 @@
+#include <iostream>
+using namespace std;
+void sort1(int a[], int length)
+{
+	for (int i = 0; i < length - 1; i++)
+	{
+		for (int j = 0; j < length - 1 - i; j++)
+		{
+			if (a[j] > a[j + 1])
+			{
+				int temp;
+				temp = a[j];
+				a[j] = a[j + 1];
+				a[j + 1] = temp;
+			}
+		}
+	}
+}
+void sort2(int a[], int length)
+{
+	for (int i = 0; i < length - 1; i++)
+	{
+		for (int j = i + 1; j < length; j++)
+		{
+			if (a[i] > a[j])
+			{
+				int temp;
+				temp = a[j];
+				a[j] = a[i];
+				a[i] = temp;
+			}
+		}
+	}
+}
+void sort3(int a[], int length)
+{
+	int j;
+	for (int i = 1; i < length; i++)//用来选每次要插入的萝卜，从二号位开始
+	{
+		int temp=a[i];//存放萝卜
+		for (j = i; j > 0 && temp < a[j-1]; j--)//和被选中萝卜之前的所有萝卜比较大小
+		{
+			a[ j ] = a[j - 1];
+		}
+		a[j] = temp;//一个萝卜一个坑
+	}
+}
+int main()
+{
+	int a[10] = {10,9,8,7,6,5,4,3,2,1};
+	int length = 10;
+	sort3(a, length);
+	for (int i = 0; i < 10; i++)
+	{
+		cout << a[i] << ' ';
+	}
+	cout << endl;
+	return 0;
+}
