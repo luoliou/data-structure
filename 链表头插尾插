@@ -1,61 +1,51 @@
 #include <iostream>
 using namespace std;
-struct Node
+struct node
 {
 	int data;
-	Node *next;
+	node *next;
 };
-Node *createlist()
+node *create()
 {
-	Node *head = new Node;
+	node *head = new node;
 	head->next = NULL;
 	return head;
 }
-Node *createnode(int n)
-{
-	Node *newnode = new Node;
-	newnode->data = n;
-	newnode->next = NULL;
-	return newnode;
-}
-//void inserthead(Node *head, int data)
+//void addnode(node *head,int n)头插法
 //{
-//	Node *newnode = createnode(data);
+//	node *newnode = new node;
+//	newnode->data = n;
 //	newnode->next = head->next;
 //	head->next = newnode;
 //}
-
-void inserttail(Node *head, int data)//加的话不能用原来的那个方法，因为p指针重置为第一个了
+void addnode(node *head, int n)//尾插法要想找到最后一个节点
 {
-	Node *newnode = createnode(data);
-	Node *p = head;
+	node *newnode = new node;
+	newnode->data = n;
+	newnode->next = NULL;
+	node *p = head;
 	while (p->next != NULL)
 	{
 		p = p->next;
 	}
-	newnode->next = NULL;
 	p->next = newnode;
 }
-void printlist(Node *head)
+void print(node *head)
 {
-	Node *pmove = head->next;
-	while (pmove)
+	node *p = head->next;
+	while (p != NULL)
 	{
-		cout << pmove->data << '\t';
-		pmove = pmove->next;
+		cout << p->data << ' ';
+		p = p->next;
 	}
 	cout << endl;
 }
 int main()
 {
-	Node *list = createlist();
-	/*inserthead(list, 3);
-	inserthead(list, 2);
-	inserthead(list, 1);*/
-	inserttail(list, 3);
-	inserttail(list, 2);
-	inserttail(list, 1);
-	printlist(list);
-	system("pause");
+	node *head = create();
+	addnode(head, 3);
+	addnode(head, 2);
+	addnode(head, 1);
+	print(head);
 	return 0;
 }
